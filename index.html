@@ -1,42 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Currency Converter</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <h1>Curreny Converter</h1>
-    
-    <div class="currency">
+  <h1>Currency Converter</h1>
 
+  <div class="currency">
+    <!-- From Currency -->
     <div class="currency1">
-      
-      
-        <img src="https://flagsapi.com/PK/shiny/64.png">
-        <select name="from" class="from">
-          
-          </select>
-          
-        <h3>Enter Amount</h3>
-        
-        <input type="number" id="amount">
+      <img src="https://flagsapi.com/PK/shiny/64.png" alt="Flag">
+      <select name="from" class="from"></select>
+      <h3>Enter Amount</h3>
+      <input type="number" id="amount" placeholder="Enter amount" value="1">
     </div>
 
-     <div class="currency2">
-        <img src="https://flagsapi.com/US/shiny/64.png">
-         <select name="to" class="to">
-             
-              
-        </select>
-        <h3>Is Equal To</h3>
-      <div class="output"></div>
+    <!-- To Currency -->
+    <div class="currency2">
+      <img src="https://flagsapi.com/US/shiny/64.png" alt="Flag">
+      <select name="to" class="to"></select>
+      <h3>Is Equal To</h3>
+      <div class="output">0</div>
     </div>
+  </div>
 
-    </div>
-   
-   <button class="convert">Convert</button>
-    <script src="script.js"></script>
+  <button id="swap"> Swap 🔄</button>
+
+
+  
+  <script src="script.js"></script>
 </body>
 </html>
