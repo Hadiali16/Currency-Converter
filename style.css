@@ -13,7 +13,8 @@ body {
     align-items: center;
     flex-direction: column;
     font-family: sans-serif;
-    background-color: #f5f5f5;
+    background: linear-gradient(135deg, #f5f5f5, #dbeafe);
+    animation: fadeIn 1s ease-in;
 }
 
 /* Heading */
@@ -21,29 +22,32 @@ h1 {
     text-align: center;
     margin-bottom: 2rem;
     color: #333;
+    font-size: 2.5rem;
+    animation: slideDown 1s ease-in-out;
 }
 
 /* Main Converter Container */
 .currency {
-    height: auto;
     width: 90%;
     max-width: 800px;
     border: 2px solid black;
-    border-radius: 10px;
-    padding: 1rem;
+    border-radius: 15px;
+    padding: 1.5rem;
     background-color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 40px;
     flex-wrap: wrap;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    animation: popIn 0.8s ease-in-out;
 }
 
 /* Currency Boxes */
 .currency1,
 .currency2 {
     border: 1px solid black;
-    border-radius: 10px;
+    border-radius: 15px;
     height: 300px;
     width: 40%;
     min-width: 250px;
@@ -52,7 +56,15 @@ h1 {
     align-items: center;
     flex-direction: column;
     padding: 1rem;
-    background-color: #e0f7fa;
+    background: linear-gradient(135deg, #e0f7fa, #b3e5fc);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.currency1:hover,
+.currency2:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 
 /* Dropdown & Input Styling */
@@ -62,14 +74,31 @@ select {
     font-size: 1rem;
     margin-bottom: 1rem;
     cursor: pointer;
+    border-radius: 8px;
+    border: 2px solid #1e90ff;
+    transition: 0.3s ease;
+}
+
+select:hover {
+    border-color: #00bcd4;
+    transform: scale(1.05);
 }
 
 input {
     border: 3px solid black;
+    border-radius: 10px;
     height: 3.5rem;
     width: 10rem;
     padding: 0.2rem;
     font-size: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+input:focus {
+    border-color: #1e90ff;
+    box-shadow: 0 0 8px #1e90ff;
+    transform: scale(1.05);
 }
 
 /* Labels */
@@ -77,20 +106,25 @@ input {
 .currency2 h3 {
     margin: 10px 0;
     color: #333;
+    animation: fadeInUp 1s ease-in-out;
 }
 
+/* Output Box */
 .output {
-background-color:white;
+    background-color: white;
     border: 3px solid black;
+    border-radius: 10px;
     height: 3.5rem;
     width: 10rem;
     padding: 0.2rem;
     font-size: 2rem;
-    display:flex;
-    justify-content:flex-start;
-    align-items:center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 1s ease-in-out;
 }
 
+/* Button */
 button {
     height: 3rem;
     width: 12rem;
@@ -107,18 +141,44 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 8px; /* for adding an icon if needed */
+    gap: 8px;
+    animation: bounceIn 1s ease-in-out;
 }
 
 button:hover {
     background: linear-gradient(135deg, #1e90ff, dodgerblue);
-    transform: translateY(-2px);
+    transform: translateY(-3px) scale(1.05);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
 }
 
 button:active {
-    transform: scale(0.97);
+    transform: scale(0.95);
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }
 
+/* Keyframes for animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
 
+@keyframes slideDown {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes popIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeInUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    50% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); }
+}
