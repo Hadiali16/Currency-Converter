@@ -1,4 +1,6 @@
-//Country List 
+// =====================
+// Country List
+// =====================
 const countryList = {
   AED: "AE", AFN: "AF", ALL: "AL", AMD: "AM", ANG: "NL", AOA: "AO", ARS: "AR", AUD: "AU", AWG: "AW",
   AZN: "AZ", BAM: "BA", BBD: "BB", BDT: "BD", BGN: "BG", BHD: "BH", BIF: "BI", BMD: "BM", BND: "BN",
@@ -20,257 +22,146 @@ const countryList = {
   XAF: "CM", XCD: "AG", XOF: "SN", XPF: "PF", YER: "YE", ZAR: "ZA", ZMW: "ZM", ZWL: "ZW"
 };
 
-
-
-
-
-//Starting Real code
-
-const BASE_URL = "https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies";
-
-
-
-const dropdowns = document.querySelectorAll(".currency select")
-const button = document.querySelector(".convert")
-const from = document.querySelector(".currency1 select")
-const to = document.querySelector(".currency2 select")
-const display = document.querySelector(".output")
-
+// =====================
+// Currency Full Names
+// =====================
 const currencyFullNames = {
-  "AFN": "Afghan Afghani",
-  "ALL": "Albanian Lek",
-  "DZD": "Algerian Dinar",
-  "AOA": "Angolan Kwanza",
-  "ARS": "Argentine Peso",
-  "AMD": "Armenian Dram",
-  "AWG": "Aruban Florin",
-  "AUD": "Australian Dollar",
-  "AZN": "Azerbaijani Manat",
-  "BSD": "Bahamian Dollar",
-  "BHD": "Bahraini Dinar",
-  "BDT": "Bangladeshi Taka",
-  "BBD": "Barbadian Dollar",
-  "BYN": "Belarusian Ruble",
-  "BZD": "Belize Dollar",
-  "XOF": "West African CFA Franc",
-  "BMD": "Bermudian Dollar",
-  "BTN": "Bhutanese Ngultrum",
-  "BOB": "Bolivian Boliviano",
-  "BAM": "Bosnia-Herzegovina Convertible Mark",
-  "BWP": "Botswanan Pula",
-  "BRL": "Brazilian Real",
-  "BND": "Brunei Dollar",
-  "BGN": "Bulgarian Lev",
-  "BIF": "Burundian Franc",
-  "KHR": "Cambodian Riel",
-  "CAD": "Canadian Dollar",
-  "CVE": "Cape Verdean Escudo",
-  "KYD": "Cayman Islands Dollar",
-  "XAF": "Central African CFA Franc",
-  "CLP": "Chilean Peso",
-  "CNY": "Chinese Yuan",
-  "COP": "Colombian Peso",
-  "KMF": "Comorian Franc",
-  "CDF": "Congolese Franc",
-  "CRC": "Costa Rican Colón",
-  "HRK": "Croatian Kuna",
-  "CUP": "Cuban Peso",
-  "CZK": "Czech Koruna",
-  "DKK": "Danish Krone",
-  "DJF": "Djiboutian Franc",
-  "DOP": "Dominican Peso",
-  "EGP": "Egyptian Pound",
-  "ERN": "Eritrean Nakfa",
-  "SZL": "Swazi Lilangeni",
-  "ETB": "Ethiopian Birr",
-  "EUR": "Euro",
-  "FKP": "Falkland Islands Pound",
-  "FJD": "Fijian Dollar",
-  "XPF": "CFP Franc",
-  "GMD": "Gambian Dalasi",
-  "GEL": "Georgian Lari",
-  "GHS": "Ghanaian Cedi",
-  "GIP": "Gibraltar Pound",
-  "GTQ": "Guatemalan Quetzal",
-  "GNF": "Guinean Franc",
-  "GYD": "Guyanaese Dollar",
-  "HTG": "Haitian Gourde",
-  "HNL": "Honduran Lempira",
-  "HKD": "Hong Kong Dollar",
-  "HUF": "Hungarian Forint",
-  "ISK": "Icelandic Króna",
-  "INR": "Indian Rupee",
-  "IDR": "Indonesian Rupiah",
-  "IRR": "Iranian Rial",
-  "IQD": "Iraqi Dinar",
-  "ILS": "Israeli New Shekel",
-  "JMD": "Jamaican Dollar",
-  "JPY": "Japanese Yen",
-  "JOD": "Jordanian Dinar",
-  "KZT": "Kazakhstani Tenge",
-  "KES": "Kenyan Shilling",
-  "KID": "Kiribati Dollar",
-  "KRW": "South Korean Won",
-  "KWD": "Kuwaiti Dinar",
-  "KGS": "Kyrgystani Som",
-  "LAK": "Laotian Kip",
-  "LBP": "Lebanese Pound",
-  "LSL": "Lesotho Loti",
-  "LRD": "Liberian Dollar",
-  "LYD": "Libyan Dinar",
-  "MOP": "Macanese Pataca",
-  "MKD": "Macedonian Denar",
-  "MGA": "Malagasy Ariary",
-  "MWK": "Malawian Kwacha",
-  "MYR": "Malaysian Ringgit",
-  "MVR": "Maldivian Rufiyaa",
-  "MRU": "Mauritanian Ouguiya",
-  "MUR": "Mauritian Rupee",
-  "MXN": "Mexican Peso",
-  "MDL": "Moldovan Leu",
-  "MNT": "Mongolian Tugrik",
-  "MAD": "Moroccan Dirham",
-  "MZN": "Mozambican Metical",
-  "MMK": "Myanma Kyat",
-  "NAD": "Namibian Dollar",
-  "NPR": "Nepalese Rupee",
-  "ANG": "Netherlands Antillean Guilder",
-  "NZD": "New Zealand Dollar",
-  "NIO": "Nicaraguan Córdoba",
-  "NGN": "Nigerian Naira",
-  "NOK": "Norwegian Krone",
-  "OMR": "Omani Rial",
-  "PKR": "Pakistani Rupee",
-  "PAB": "Panamanian Balboa",
-  "PGK": "Papua New Guinean Kina",
-  "PYG": "Paraguayan Guarani",
-  "PEN": "Peruvian Nuevo Sol",
-  "PHP": "Philippine Peso",
-  "PLN": "Polish Zloty",
-  "QAR": "Qatari Rial",
-  "RON": "Romanian Leu",
-  "RUB": "Russian Ruble",
-  "RWF": "Rwandan Franc",
-  "SHP": "Saint Helena Pound",
-  "WST": "Samoan Tala",
-  "STN": "São Tomé and Príncipe Dobra",
-  "SAR": "Saudi Riyal",
-  "RSD": "Serbian Dinar",
-  "SCR": "Seychellois Rupee",
-  "SLL": "Sierra Leonean Leone",
-  "SLE": "Sierra Leonean Leone",
-  "SGD": "Singapore Dollar",
-  "SBD": "Solomon Islands Dollar",
-  "SOS": "Somali Shilling",
-  "ZAR": "South African Rand",
-  "SSP": "South Sudanese Pound",
-  "LKR": "Sri Lankan Rupee",
-  "SDG": "Sudanese Pound",
-  "SRD": "Surinamese Dollar",
-  "SEK": "Swedish Krona",
-  "CHF": "Swiss Franc",
-  "SYP": "Syrian Pound",
-  "TWD": "New Taiwan Dollar",
-  "TJS": "Tajikistani Somoni",
-  "TZS": "Tanzanian Shilling",
-  "THB": "Thai Baht",
-  "TOP": "Tongan Paʻanga",
-  "TTD": "Trinidad and Tobago Dollar",
-  "TND": "Tunisian Dinar",
-  "TRY": "Turkish Lira",
-  "TMT": "Turkmenistani Manat",
-  "TVD": "Tuvaluan Dollar",
-  "UGX": "Ugandan Shilling",
-  "UAH": "Ukrainian Hryvnia",
-  "AED": "United Arab Emirates Dirham",
-  "GBP": "British Pound Sterling",
-  "USD": "United States Dollar",
-  "UYU": "Uruguayan Peso",
-  "UZS": "Uzbekistani Som",
-  "VUV": "Vanuatu Vatu",
-  "VES": "Venezuelan Bolívar Soberano",
-  "VND": "Vietnamese Dong",
-  "YER": "Yemeni Rial",
-  "ZMW": "Zambian Kwacha",
+  "AFN": "Afghan Afghani", "ALL": "Albanian Lek", "DZD": "Algerian Dinar",
+  "AOA": "Angolan Kwanza", "ARS": "Argentine Peso", "AMD": "Armenian Dram",
+  "AWG": "Aruban Florin", "AUD": "Australian Dollar", "AZN": "Azerbaijani Manat",
+  "BSD": "Bahamian Dollar", "BHD": "Bahraini Dinar", "BDT": "Bangladeshi Taka",
+  "BBD": "Barbadian Dollar", "BYN": "Belarusian Ruble", "BZD": "Belize Dollar",
+  "XOF": "West African CFA Franc", "BMD": "Bermudian Dollar", "BTN": "Bhutanese Ngultrum",
+  "BOB": "Bolivian Boliviano", "BAM": "Bosnia-Herzegovina Convertible Mark",
+  "BWP": "Botswanan Pula", "BRL": "Brazilian Real", "BND": "Brunei Dollar",
+  "BGN": "Bulgarian Lev", "BIF": "Burundian Franc", "KHR": "Cambodian Riel",
+  "CAD": "Canadian Dollar", "CVE": "Cape Verdean Escudo", "KYD": "Cayman Islands Dollar",
+  "XAF": "Central African CFA Franc", "CLP": "Chilean Peso", "CNY": "Chinese Yuan",
+  "COP": "Colombian Peso", "KMF": "Comorian Franc", "CDF": "Congolese Franc",
+  "CRC": "Costa Rican Colón", "HRK": "Croatian Kuna", "CUP": "Cuban Peso",
+  "CZK": "Czech Koruna", "DKK": "Danish Krone", "DJF": "Djiboutian Franc",
+  "DOP": "Dominican Peso", "EGP": "Egyptian Pound", "ERN": "Eritrean Nakfa",
+  "SZL": "Swazi Lilangeni", "ETB": "Ethiopian Birr", "EUR": "Euro",
+  "FKP": "Falkland Islands Pound", "FJD": "Fijian Dollar", "XPF": "CFP Franc",
+  "GMD": "Gambian Dalasi", "GEL": "Georgian Lari", "GHS": "Ghanaian Cedi",
+  "GIP": "Gibraltar Pound", "GTQ": "Guatemalan Quetzal", "GNF": "Guinean Franc",
+  "GYD": "Guyanaese Dollar", "HTG": "Haitian Gourde", "HNL": "Honduran Lempira",
+  "HKD": "Hong Kong Dollar", "HUF": "Hungarian Forint", "ISK": "Icelandic Króna",
+  "INR": "Indian Rupee", "IDR": "Indonesian Rupiah", "IRR": "Iranian Rial",
+  "IQD": "Iraqi Dinar", "ILS": "Israeli New Shekel", "JMD": "Jamaican Dollar",
+  "JPY": "Japanese Yen", "JOD": "Jordanian Dinar", "KZT": "Kazakhstani Tenge",
+  "KES": "Kenyan Shilling", "KID": "Kiribati Dollar", "KRW": "South Korean Won",
+  "KWD": "Kuwaiti Dinar", "KGS": "Kyrgystani Som", "LAK": "Laotian Kip",
+  "LBP": "Lebanese Pound", "LSL": "Lesotho Loti", "LRD": "Liberian Dollar",
+  "LYD": "Libyan Dinar", "MOP": "Macanese Pataca", "MKD": "Macedonian Denar",
+  "MGA": "Malagasy Ariary", "MWK": "Malawian Kwacha", "MYR": "Malaysian Ringgit",
+  "MVR": "Maldivian Rufiyaa", "MRU": "Mauritanian Ouguiya", "MUR": "Mauritian Rupee",
+  "MXN": "Mexican Peso", "MDL": "Moldovan Leu", "MNT": "Mongolian Tugrik",
+  "MAD": "Moroccan Dirham", "MZN": "Mozambican Metical", "MMK": "Myanma Kyat",
+  "NAD": "Namibian Dollar", "NPR": "Nepalese Rupee", "ANG": "Netherlands Antillean Guilder",
+  "NZD": "New Zealand Dollar", "NIO": "Nicaraguan Córdoba", "NGN": "Nigerian Naira",
+  "NOK": "Norwegian Krone", "OMR": "Omani Rial", "PKR": "Pakistani Rupee",
+  "PAB": "Panamanian Balboa", "PGK": "Papua New Guinean Kina", "PYG": "Paraguayan Guarani",
+  "PEN": "Peruvian Nuevo Sol", "PHP": "Philippine Peso", "PLN": "Polish Zloty",
+  "QAR": "Qatari Rial", "RON": "Romanian Leu", "RUB": "Russian Ruble",
+  "RWF": "Rwandan Franc", "SHP": "Saint Helena Pound", "WST": "Samoan Tala",
+  "STN": "São Tomé and Príncipe Dobra", "SAR": "Saudi Riyal", "RSD": "Serbian Dinar",
+  "SCR": "Seychellois Rupee", "SLL": "Sierra Leonean Leone", "SLE": "Sierra Leonean Leone",
+  "SGD": "Singapore Dollar", "SBD": "Solomon Islands Dollar", "SOS": "Somali Shilling",
+  "ZAR": "South African Rand", "SSP": "South Sudanese Pound", "LKR": "Sri Lankan Rupee",
+  "SDG": "Sudanese Pound", "SRD": "Surinamese Dollar", "SEK": "Swedish Krona",
+  "CHF": "Swiss Franc", "SYP": "Syrian Pound", "TWD": "New Taiwan Dollar",
+  "TJS": "Tajikistani Somoni", "TZS": "Tanzanian Shilling", "THB": "Thai Baht",
+  "TOP": "Tongan Paʻanga", "TTD": "Trinidad and Tobago Dollar", "TND": "Tunisian Dinar",
+  "TRY": "Turkish Lira", "TMT": "Turkmenistani Manat", "TVD": "Tuvaluan Dollar",
+  "UGX": "Ugandan Shilling", "UAH": "Ukrainian Hryvnia", "AED": "United Arab Emirates Dirham",
+  "GBP": "British Pound Sterling", "USD": "United States Dollar", "UYU": "Uruguayan Peso",
+  "UZS": "Uzbekistani Som", "VUV": "Vanuatu Vatu", "VES": "Venezuelan Bolívar Soberano",
+  "VND": "Vietnamese Dong", "YER": "Yemeni Rial", "ZMW": "Zambian Kwacha",
   "ZWL": "Zimbabwean Dollar"
+};
+
+// =====================
+// Elements
+// =====================
+const BASE_URL = "https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies";
+const dropdowns = document.querySelectorAll(".currency select");
+const from = document.querySelector(".currency1 select");
+const to = document.querySelector(".currency2 select");
+const display = document.querySelector(".output");
+
+// =====================
+// Populate Dropdowns
+// =====================
+for (let select of dropdowns) {
+  for (let code in countryList) {
+    let newOption = document.createElement("option");
+    newOption.innerText = currencyFullNames[code];
+    newOption.value = code;
+
+    if (select.name === "from" && code === "PKR") newOption.selected = true;
+    if (select.name === "to" && code === "USD") newOption.selected = true;
+
+    select.append(newOption);
+  }
+  select.addEventListener("change", (e) => {
+    updateFlag(e.target);
+    convertCurrency();
+  });
 }
 
-
-for(let select of dropdowns) {
-    for (countryName in countryList) {
-  let newOption = document.createElement("option")
-     newOption.innerText = `${currencyFullNames[countryName]}`;
-
-     newOption.value = countryName;
-     if(select.name === "from" && countryName === "PKR") {
-        newOption.selected = "PKR"
-     }
-
-     if(select.name === "to" && countryName === "USD") {
-        newOption.selected = "USD"
-     }
-     select.append(newOption);
+// =====================
+// Update Flag
+// =====================
+function updateFlag(element) {
+  let code = element.value;
+  let countryCode = countryList[code];
+  let newSrc = `https://flagsapi.com/${countryCode}/shiny/64.png`;
+  let img = element.parentElement.querySelector("img");
+  img.src = newSrc;
 }
 
-select.addEventListener("change", (evt) => {
-    updateFlag(evt.target)
-})
+// =====================
+// Convert Function
+// =====================
+async function convertCurrency() {
+  let amount = document.querySelector("#amount");
+  let amtVal = amount.value;
 
-}
-
-for (let countryName in countryList) {
-  let countryCode = countryList[countryName];
-//   console.log(countryName); // South Korean Won
-//   console.log(countryCode); // KRW
-}
-
-
-//Creating Function to Change Flag
-
-const updateFlag = (element) => {
-   let countryName = element.value;
-   console.log(countryName)
-    let countryCode = countryList[countryName]; 
-   let newSrc = `https://flagsapi.com/${countryCode}/shiny/64.png`
-  let newImage =  element.parentElement.querySelector("img")
-  newImage.src = newSrc
-}
-
-
- 
-
-
-button.addEventListener("click" , async (evt) => {
-   evt.preventDefault();
-   let amount = document.querySelector("#amount")
-   amtVal = amount.value;
-   if(amtVal === "" || amtVal <1) {
+  if (amtVal === "" || amtVal < 1) {
     amtVal = 1;
-    amount.value = "1"
-   }
-  
+    amount.value = "1";
+  }
 
+  let fromCurrency = from.value.toLowerCase();
+  let toCurrency = to.value.toLowerCase();
+  const URL = `${BASE_URL}/${fromCurrency}.json`;
 
+  let response = await fetch(URL);
+  let data = await response.json();
+  let rate = data[fromCurrency][toCurrency];
+  let final = rate * amtVal;
 
+  display.innerText = final.toFixed(2);
+}
 
-let fromCurrency = from.value.toLowerCase();
-let toCurrency = to.value.toLowerCase();
-const URL = `${BASE_URL}/${fromCurrency}.json`;
+// =====================
+// Auto Convert on Input
+// =====================
+document.querySelector("#amount").addEventListener("input", convertCurrency);
 
+// =====================
+// Swap Function
+// =====================
+document.querySelector("#swap").addEventListener("click", () => {
+  let temp = from.value;
+  from.value = to.value;
+  to.value = temp;
 
+  updateFlag(from);
+  updateFlag(to);
+  convertCurrency();
+});
 
-let response = await fetch (URL)
-let data = await response.json()
-console.log(data)
-let rate = data[fromCurrency][toCurrency]
-console.log(rate)
-let final = rate * amtVal
-console.log(final.toFixed(2))
-
-display.innerText = final.toFixed(2);
-
-})
-
-
-
-
+// Initial conversion
+convertCurrency();
