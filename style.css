@@ -91,22 +91,34 @@ background-color:white;
     align-items:center;
 }
 
-.convert {
-    height:3rem;
-    width:20rem;
-    margin-top:2rem;
-    border-radius:4px;
-    background-color:dodgerblue;
-    color:white;
-    font-weight: bolder;
-    font-size:20px;
-    
+button {
+    height: 3rem;
+    width: 12rem;
+    margin-top: 2rem;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(135deg, dodgerblue, #1e90ff);
+    color: white;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px; /* for adding an icon if needed */
 }
 
-.convert:hover {
-    opacity:0.8;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+button:hover {
+    background: linear-gradient(135deg, #1e90ff, dodgerblue);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
 }
+
+button:active {
+    transform: scale(0.97);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
 
